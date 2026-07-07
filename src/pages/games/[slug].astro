@@ -1,0 +1,96 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Dialogue from "../../components/Dialogue.astro";
+
+export async function getStaticPaths() {
+  const games = await getCollection("games");
+  return games.map((game) => ({
+    params: { slug: game.id },
+    props: { game },
+  }));
+}
+
+const { game } = Astro.props;
+const { Content } = await render(game);
+
+const releaseLabel = game.data.releaseDate.toLocaleDateString("ja-JP", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const gameListHref = game.data.category === "ios" ? "/#ios" : "/#unityroom";
+---
+
+<BaseLayout
+  title={game.data.title}
+  description={game.data.catch}
+  image={game.data.cover}
+>
+  <div style={`--card-color: ${game.data.color}`}>
+    <section class="game-hero">
+      <div class="container">
+        <h1>{game.data.title}</h1>
+        <p class="catch">{game.data.catch}</p>
+        <div class="badges">
+          {
+            game.data.unityroomNo && (
+              <span class="badge badge-no">
+                100本投稿企画 {game.data.unityroomNo}本目
+              </span>
+            )
+          }
+          <span class="badge">{game.data.genre}</span>
+          {game.data.platforms.map((p) => <span class="badge">{p}</span>)}
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="game-detail">
+        <div>
+          <div class="screenshots">
+            <img src={game.data.cover} alt={`${game.data.title}のメイン画像`} />
+            {
+              game.data.screenshots.map((shot, i) => (
+                <img
+                  src={shot}
+                  alt={`${game.data.title}のスクリーンショット${i + 1}`}
+                  loading="lazy"
+                />
+              ))
+            }
+          </div>
+          {
+            game.data.dialogue.length > 0 && (
+              <Dialogue lines={game.data.dialogue} />
+            )
+          }
+          <div class="prose">
+            <Content />
+          </div>
+          <a class="back-link" href={gameListHref}>← ゲーム一覧にもどる</a>
+        </div>
+
+        <aside class="info-box">
+          <dl>
+            <dt>ジャンル</dt>
+            <dd>{game.data.genre}</dd>
+            <dt>プラットフォーム</dt>
+            <dd>{game.data.platforms.join(" / ")}</dd>
+            <dt>リリース日</dt>
+            <dd>{releaseLabel}</dd>
+          </dl>
+          {
+            game.data.links.map((link) => (
+              <a class="btn" href={link.url} target="_blank" rel="noopener">
+                {link.label}
+              </a>
+            ))
+          }
+        </aside>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

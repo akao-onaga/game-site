@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  game: CollectionEntry<"games">;
+}
+
+const { game } = Astro.props;
+---
+
+<a class="game-card" href={`/games/${game.id}/`}>
+  <img src={game.data.cover} alt={`${game.data.title}のカバー画像`} loading="lazy" />
+  <div class="game-card-body">
+    <h3>{game.data.title}</h3>
+    <p class="catch">{game.data.catch}</p>
+    <div class="badges">
+      {
+        game.data.unityroomNo && (
+          <span class="badge badge-no">{game.data.unityroomNo}本目</span>
+        )
+      }
+      <span class="badge">{game.data.genre}</span>
+      {game.data.platforms.map((p) => <span class="badge">{p}</span>)}
+    </div>
+  </div>
+</a>

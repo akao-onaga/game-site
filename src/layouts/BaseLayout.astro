@@ -1,0 +1,87 @@
+---
+import "../styles/global.css";
+import PixelChara from "../components/PixelChara.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** OGP用の画像(絶対URL、またはpublic/からのパス) */
+  image?: string;
+}
+
+const siteName = "あかお＠ゲーム開発";
+const xUrl = "https://x.com/akaogame0124";
+const {
+  title,
+  description = "個人ゲーム開発者「あかお」の作品紹介サイト。unityroom 100本投稿企画に挑戦中!",
+  image = "/ogp.png",
+} = Astro.props;
+const pageTitle = title ? `${title} | ${siteName}` : siteName;
+
+// 相対パスの画像は site 設定(astro.config.mjs)があるときだけ絶対URL化できる
+const ogImage = image
+  ? image.startsWith("http")
+    ? image
+    : Astro.site
+      ? new URL(image, Astro.site).href
+      : undefined
+  : undefined;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta
+      name="twitter:card"
+      content={ogImage ? "summary_large_image" : "summary"}
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="site-logo" href="/">
+          <PixelChara size={22} />
+          {siteName}
+        </a>
+        <nav class="site-nav">
+          <a href="/#unityroom">100本企画</a>
+          <a href="/#ios">iOSアプリ</a>
+          <a href="/about/">開発者</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>
+          最新情報は <a href={xUrl} target="_blank" rel="noopener">X (Twitter)</a> で発信中
+        </p>
+        <p style="margin: 4px 0 12px;">
+          <a href="/privacy/">プライバシーポリシー</a>
+        </p>
+        © {new Date().getFullYear()}
+        {siteName}
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,135 @@
+---
+// あかお × おナガ の会話形式でゲームを紹介するコンポーネント
+import PixelChara from "./PixelChara.astro";
+import PixelOnaga from "./PixelOnaga.astro";
+
+interface Line {
+  speaker: "akao" | "onaga";
+  text: string;
+}
+
+interface Props {
+  lines: Line[];
+}
+
+const { lines } = Astro.props;
+const names: Record<Line["speaker"], string> = {
+  akao: "あかお",
+  onaga: "おナガ",
+};
+---
+
+<div class="dialogue">
+  {
+    lines.map((line) => (
+      <div class={`dialogue-row ${line.speaker}`}>
+        <div class="dialogue-avatar">
+          <div class="dialogue-face">
+            {line.speaker === "akao" ? (
+              <PixelChara size={34} />
+            ) : (
+              <PixelOnaga size={46} />
+            )}
+          </div>
+          <span class="dialogue-name">{names[line.speaker]}</span>
+        </div>
+        <p class="dialogue-bubble">{line.text}</p>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .dialogue {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin: 24px 0 36px;
+  }
+
+  .dialogue-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .dialogue-row.onaga {
+    flex-direction: row-reverse;
+  }
+
+  .dialogue-avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    gap: 6px;
+    width: 64px;
+  }
+
+  .dialogue-face {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: #fff;
+    border: 3px solid var(--ink);
+  }
+
+  .dialogue-row.onaga .dialogue-face {
+    background: var(--sky);
+  }
+
+  .dialogue-name {
+    display: block;
+    max-width: 100%;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .dialogue-bubble {
+    position: relative;
+    margin: 0;
+    padding: 12px 18px;
+    max-width: calc(100% - 160px);
+    background: #fff;
+    border: 3px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    line-height: 1.8;
+  }
+
+  /* アバター側に向く吹き出しのしっぽ */
+  .dialogue-bubble::before {
+    content: "";
+    position: absolute;
+    top: 18px;
+    left: -14px;
+    width: 17px;
+    height: 14px;
+    background: inherit;
+    border: 3px solid var(--ink);
+    border-right: none;
+  }
+
+  .dialogue-row.onaga .dialogue-bubble {
+    background: var(--cream);
+  }
+
+  .dialogue-row.onaga .dialogue-bubble::before {
+    left: auto;
+    right: -14px;
+    border-right: 3px solid var(--ink);
+    border-left: none;
+  }
+
+  @media (max-width: 560px) {
+    .dialogue-bubble {
+      max-width: calc(100% - 76px);
+      font-size: 0.92rem;
+    }
+  }
+</style>

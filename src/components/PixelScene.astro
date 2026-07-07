@@ -1,0 +1,46 @@
+---
+// トップページの草原シーン: 木・キャラクター・木
+import PixelChara from "./PixelChara.astro";
+---
+
+<div class="pixel-scene" aria-hidden="true">
+  <svg
+    width="96"
+    height="102"
+    viewBox="0 0 16 17"
+    shape-rendering="crispEdges"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect x="0" y="0" width="16" height="14" fill="#16161c"></rect>
+    <rect x="2" y="2" width="12" height="10" fill="#3f7d4b"></rect>
+    <rect x="6" y="14" width="4" height="3" fill="#a9705f"></rect>
+  </svg>
+  <PixelChara size={56} />
+  <svg
+    width="96"
+    height="102"
+    viewBox="0 0 16 17"
+    shape-rendering="crispEdges"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect x="0" y="0" width="16" height="14" fill="#16161c"></rect>
+    <rect x="2" y="2" width="12" height="10" fill="#3f7d4b"></rect>
+    <rect x="6" y="14" width="4" height="3" fill="#a9705f"></rect>
+  </svg>
+</div>
+
+<style>
+  .pixel-scene {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 48px;
+    padding: 32px 20px 0;
+  }
+
+  @media (max-width: 520px) {
+    .pixel-scene {
+      gap: 24px;
+    }
+  }
+</style>

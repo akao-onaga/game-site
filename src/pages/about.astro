@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PixelChara from "../components/PixelChara.astro";
+import PixelOnaga from "../components/PixelOnaga.astro";
+---
+
+<BaseLayout title="開発者について">
+  <section class="section" style="padding-bottom: 72px;">
+    <div class="container" style="max-width: 720px;">
+      <div style="display: flex; justify-content: center; padding: 8px 0 24px;">
+        <PixelChara size={72} />
+      </div>
+      <h2 style="font-size: 1.4rem;">開発者について</h2>
+      <p>はじめまして。個人でゲームを開発している「あかお」です。</p>
+      <p>
+        思いついたゲームをどんどん投稿していくスタイルで、unityroomにゲームを
+        100本投稿する「<strong>unityroom 100本投稿企画</strong>」に挑戦中です。
+        伸びたやつはちゃんと作ってリリースするかも?
+        進捗や新作情報はXで発信しています。
+      </p>
+      <h3>相棒紹介</h3>
+      <div
+        style="display: flex; align-items: center; gap: 24px; background: #fff; border: 4px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); padding: 20px 24px; margin: 16px 0 36px;"
+      >
+        <div style="flex-shrink: 0;">
+          <PixelOnaga size={76} />
+        </div>
+        <p style="margin: 0;">
+          <strong>おナガ</strong><br />
+          あかおの相棒のシマエナガ。各ゲームの紹介ページで、あかおにあれこれ質問しながら一緒にゲームを紹介してくれる聞き役。関西弁。
+        </p>
+      </div>
+
+      <h3>リンク</h3>
+      <ul>
+        <li>
+          X (Twitter):
+          <a href="https://x.com/akaogame0124" target="_blank" rel="noopener"
+            >@akaogame0124</a
+          >
+        </li>
+        <li>
+          unityroom:
+          <a
+            href="https://unityroom.com/users/pu8lzf2nc9ht5o1r46sg"
+            target="_blank"
+            rel="noopener">あかおのプロフィールページ</a
+          >
+        </li>
+        <li>
+          App Store:
+          <a
+            href="https://apps.apple.com/jp/developer/atsuki-murayama/id1721887609"
+            target="_blank"
+            rel="noopener">デベロッパーページ</a
+          >
+        </li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
