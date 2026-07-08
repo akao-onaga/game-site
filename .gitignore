@@ -25,3 +25,4 @@ pnpm-debug.log*
 
 # 作業用一時ファイル
 tmp/
+package-lock.json
