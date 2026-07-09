@@ -7,6 +7,10 @@ platforms: [iPhone, iPad]
 releaseDate: 2023-12-26
 color: "#3f6fd1"
 cover: /images/games/nazotoki-10s/cover.jpg
+screenshots:
+  - /images/games/nazotoki-10s/shot1.png
+  - /images/games/nazotoki-10s/shot2.png
+  - /images/games/nazotoki-10s/shot3.png
 links:
   - label: App Storeで見る
     url: https://apps.apple.com/jp/app/%E8%AC%8E%E8%A7%A3%E3%81%8D10s/id6474547040

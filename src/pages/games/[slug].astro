@@ -50,8 +50,21 @@ const gameListHref = game.data.category === "ios" ? "/#ios" : "/#unityroom";
     <div class="container">
       <div class="game-detail">
         <div>
-          <div class="screenshots">
-            <img src={game.data.cover} alt={`${game.data.title}のメイン画像`} />
+          <div
+            class={`screenshots ${game.data.category === "ios" && game.data.screenshots.length > 0 ? "screenshots-phone" : ""}`}
+          >
+            {
+              /* iOSアプリでスクショがある場合は、カバー画像は省略してスクショだけ横スクロール表示 */
+              !(
+                game.data.category === "ios" &&
+                game.data.screenshots.length > 0
+              ) && (
+                <img
+                  src={game.data.cover}
+                  alt={`${game.data.title}のメイン画像`}
+                />
+              )
+            }
             {
               game.data.screenshots.map((shot, i) => (
                 <img
