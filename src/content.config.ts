@@ -16,6 +16,7 @@ const games = defineCollection({
     color: z.string().default("#ff6b9d"),
     // スクリーンショット(public/ からのパス)
     cover: z.string(),
+    icon: z.string().optional(),
     screenshots: z.array(z.string()).default([]),
     // 配信ページなどへのリンク
     links: z

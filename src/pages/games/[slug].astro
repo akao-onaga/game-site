@@ -21,6 +21,7 @@ const releaseLabel = game.data.releaseDate.toLocaleDateString("ja-JP", {
 });
 
 const gameListHref = game.data.category === "ios" ? "/#ios" : "/#unityroom";
+const heroIcon = game.data.icon ?? game.data.cover;
 ---
 
 <BaseLayout
@@ -36,7 +37,7 @@ const gameListHref = game.data.category === "ios" ? "/#ios" : "/#unityroom";
             game.data.category === "ios" && (
               <img
                 class="game-hero-icon"
-                src={game.data.cover}
+                src={heroIcon}
                 alt={`${game.data.title}のアプリアイコン`}
               />
             )

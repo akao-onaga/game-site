@@ -7,6 +7,7 @@ platforms: [iPhone, iPad]
 releaseDate: 2026-05-16
 color: "#2e7d4f"
 cover: /images/games/time-reversi/cover.jpg
+icon: /images/games/time-reversi/icon.jpg
 screenshots:
   - /images/games/time-reversi/shot1.webp
   - /images/games/time-reversi/shot2.webp
