@@ -7,6 +7,10 @@ platforms: [iPhone, iPad]
 releaseDate: 2026-05-16
 color: "#2e7d4f"
 cover: /images/games/time-reversi/cover.jpg
+screenshots:
+  - /images/games/time-reversi/shot1.webp
+  - /images/games/time-reversi/shot2.webp
+  - /images/games/time-reversi/shot3.webp
 links:
   - label: App Storeで見る
     url: https://apps.apple.com/jp/app/%E3%82%BF%E3%82%A4%E3%83%A0%E3%83%AA%E3%83%90%E3%83%BC%E3%82%B7/id6767279481
