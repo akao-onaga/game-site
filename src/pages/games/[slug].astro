@@ -31,18 +31,31 @@ const gameListHref = game.data.category === "ios" ? "/#ios" : "/#unityroom";
   <div style={`--card-color: ${game.data.color}`}>
     <section class="game-hero">
       <div class="container">
-        <h1>{game.data.title}</h1>
-        <p class="catch">{game.data.catch}</p>
-        <div class="badges">
+        <div class={`game-hero-body ${game.data.category === "ios" ? "with-icon" : ""}`}>
           {
-            game.data.unityroomNo && (
-              <span class="badge badge-no">
-                100本投稿企画 {game.data.unityroomNo}本目
-              </span>
+            game.data.category === "ios" && (
+              <img
+                class="game-hero-icon"
+                src={game.data.cover}
+                alt={`${game.data.title}のアプリアイコン`}
+              />
             )
           }
-          <span class="badge">{game.data.genre}</span>
-          {game.data.platforms.map((p) => <span class="badge">{p}</span>)}
+          <div class="game-hero-text">
+            <h1>{game.data.title}</h1>
+            <p class="catch">{game.data.catch}</p>
+            <div class="badges">
+              {
+                game.data.unityroomNo && (
+                  <span class="badge badge-no">
+                    100本投稿企画 {game.data.unityroomNo}本目
+                  </span>
+                )
+              }
+              <span class="badge">{game.data.genre}</span>
+              {game.data.platforms.map((p) => <span class="badge">{p}</span>)}
+            </div>
+          </div>
         </div>
       </div>
     </section>
