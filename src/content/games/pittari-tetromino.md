@@ -2,7 +2,7 @@
 title: ぴったりテトロミノ
 catch: お題と同じ形をぴったり作る、10問タイムアタック。
 category: unityroom
-unityroomNo: 9
+unityroomNo: 10
 genre: パズル
 platforms: [unityroom]
 releaseDate: 2026-07-15

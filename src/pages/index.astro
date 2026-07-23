@@ -9,7 +9,10 @@ const games = await getCollection("games");
 
 const unityroomGames = games
   .filter((g) => g.data.category === "unityroom")
-  .sort((a, b) => b.data.releaseDate.getTime() - a.data.releaseDate.getTime());
+  .sort((a, b) => {
+    const numberDiff = (b.data.unityroomNo ?? 0) - (a.data.unityroomNo ?? 0);
+    return numberDiff || b.data.releaseDate.getTime() - a.data.releaseDate.getTime();
+  });
 
 const iosGames = games
   .filter((g) => g.data.category === "ios")
