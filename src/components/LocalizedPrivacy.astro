@@ -1,0 +1,74 @@
+---
+import type { Locale } from "../i18n/config";
+import { uiCopy } from "../i18n/ui";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = uiCopy[locale].privacyPage;
+---
+
+<BaseLayout title={copy.title} locale={locale}>
+  <section class="section" style="padding-bottom: 72px;">
+    <div class="container" style="max-width: 720px;">
+      <h2 class="section-title">{copy.title}</h2>
+
+      <h3>{copy.operatorHeading}</h3>
+      <p>
+        {copy.operatorBefore}
+        {" "}
+        <a href="https://x.com/akaogame0124" target="_blank" rel="noopener">
+          X (@akaogame0124)
+        </a>
+        {" "}
+        {copy.operatorMiddle}
+        {" "}
+        <a href="mailto:contact@akao-game.com">contact@akao-game.com</a>.
+      </p>
+
+      <h3>{copy.analyticsHeading}</h3>
+      <p>
+        {copy.analyticsBefore}
+        {" "}
+        <a
+          href="https://www.cloudflare.com/web-analytics/"
+          target="_blank"
+          rel="noopener"
+        >
+          Cloudflare Web Analytics
+        </a>
+        {" "}
+        {copy.analyticsAfter}
+      </p>
+
+      <h3>{copy.languageHeading}</h3>
+      <p>{copy.languageBody}</p>
+
+      <h3>{copy.advertisingHeading}</h3>
+      <p>
+        {copy.advertisingBefore}
+        {" "}
+        <a
+          href="https://policies.google.com/technologies/ads"
+          target="_blank"
+          rel="noopener"
+        >
+          Google Advertising Policies
+        </a>
+        {" "}
+        {copy.advertisingAfter}
+      </p>
+
+      <h3>{copy.externalHeading}</h3>
+      <p>{copy.externalBody}</p>
+
+      <h3>{copy.disclaimerHeading}</h3>
+      <p>{copy.disclaimerBody}</p>
+
+      <p style="color: #6b6b70; font-size: 0.88rem;">{copy.dates}</p>
+    </div>
+  </section>
+</BaseLayout>

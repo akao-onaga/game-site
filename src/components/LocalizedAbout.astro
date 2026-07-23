@@ -1,0 +1,103 @@
+---
+import type { Locale } from "../i18n/config";
+import { uiCopy } from "../i18n/ui";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PixelChara from "./PixelChara.astro";
+import PixelOnaga from "./PixelOnaga.astro";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = uiCopy[locale].aboutPage;
+---
+
+<BaseLayout title={copy.title} locale={locale}>
+  <section class="section" style="padding-bottom: 72px;">
+    <div class="container" style="max-width: 720px;">
+      <div style="display: flex; justify-content: center; padding: 8px 0 24px;">
+        <PixelChara size={72} />
+      </div>
+      <h2 style="font-size: 1.4rem;">{copy.title}</h2>
+      <p>{copy.intro}</p>
+      <p>{copy.project}</p>
+
+      <h3>{copy.partnerHeading}</h3>
+      <div class="partner-box">
+        <div style="flex-shrink: 0;">
+          <PixelOnaga size={76} />
+        </div>
+        <p style="margin: 0;">
+          <strong>{copy.partnerName}</strong><br />
+          {copy.partnerDescription}
+        </p>
+      </div>
+
+      <h3>{copy.linksHeading}</h3>
+      <ul>
+        <li>
+          X (Twitter):
+          <a href="https://x.com/akaogame0124" target="_blank" rel="noopener">
+            @akaogame0124
+          </a>
+        </li>
+        <li>
+          unityroom:
+          <a
+            href="https://unityroom.com/users/pu8lzf2nc9ht5o1r46sg"
+            target="_blank"
+            rel="noopener"
+          >
+            {copy.unityroomProfile}
+          </a>
+        </li>
+        <li>
+          App Store:
+          <a
+            href="https://apps.apple.com/developer/atsuki-murayama/id1721887609"
+            target="_blank"
+            rel="noopener"
+          >
+            {copy.appStoreDeveloper}
+          </a>
+        </li>
+      </ul>
+
+      <h3>{copy.contactHeading}</h3>
+      <p>
+        {copy.contactBefore}
+        {" "}
+        <a href="https://x.com/akaogame0124" target="_blank" rel="noopener">
+          X (@akaogame0124)
+        </a>
+        {" "}
+        {copy.contactMiddle}
+        {" "}
+        <a href="mailto:contact@akao-game.com">contact@akao-game.com</a>
+        {copy.contactAfter}
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .partner-box {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background: #fff;
+    border: 4px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+    padding: 20px 24px;
+    margin: 16px 0 36px;
+  }
+
+  @media (max-width: 480px) {
+    .partner-box {
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px;
+    }
+  }
+</style>

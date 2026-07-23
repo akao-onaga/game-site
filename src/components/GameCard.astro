@@ -1,33 +1,39 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { getLocalePrefix, type Locale } from "../i18n/config";
+import type { GameTranslation } from "../i18n/game";
 
 interface Props {
   game: CollectionEntry<"games"> | CollectionEntry<"gamesEn">;
-  lang?: "ja" | "en";
+  locale?: Locale;
+  translation?: GameTranslation;
 }
 
-const { game, lang = "ja" } = Astro.props;
-const isEnglish = lang === "en";
-const href = `${isEnglish ? "/en" : ""}/games/${game.id}/`;
-const imageAlt = isEnglish
-  ? `${game.data.title} cover art`
-  : `${game.data.title}のカバー画像`;
+const { game, locale = "ja", translation } = Astro.props;
+const view = translation ?? game.data;
+const href = `${getLocalePrefix(locale)}/games/${game.id}/`;
+const imageAlt =
+  locale === "ja"
+    ? `${view.title}のカバー画像`
+    : `${view.title} cover art`;
 ---
 
 <a class="game-card" href={href}>
   <img src={game.data.cover} alt={imageAlt} loading="lazy" />
   <div class="game-card-body">
-    <h3>{game.data.title}</h3>
-    <p class="catch">{game.data.catch}</p>
+    <h3>{view.title}</h3>
+    <p class="catch">{view.catch}</p>
     <div class="badges">
       {
         game.data.unityroomNo && (
           <span class="badge badge-no">
-            {isEnglish ? `#${game.data.unityroomNo}` : `${game.data.unityroomNo}本目`}
+            {locale === "ja"
+              ? `${game.data.unityroomNo}本目`
+              : `#${game.data.unityroomNo}`}
           </span>
         )
       }
-      <span class="badge">{game.data.genre}</span>
+      <span class="badge">{view.genre}</span>
       {game.data.platforms.map((p) => <span class="badge">{p}</span>)}
     </div>
   </div>

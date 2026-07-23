@@ -1,0 +1,18 @@
+---
+import LocalizedAbout from "../../components/LocalizedAbout.astro";
+import {
+  additionalLocales,
+  type AdditionalLocale,
+} from "../../i18n/config";
+
+export function getStaticPaths() {
+  return additionalLocales.map((locale) => ({
+    params: { locale },
+    props: { locale },
+  }));
+}
+
+const { locale } = Astro.props as { locale: AdditionalLocale };
+---
+
+<LocalizedAbout locale={locale} />

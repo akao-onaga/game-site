@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+import LocalizedHome from "../../components/LocalizedHome.astro";
+import {
+  additionalLocales,
+  type AdditionalLocale,
+} from "../../i18n/config";
+import { localizedGames } from "../../i18n/games";
+
+export function getStaticPaths() {
+  return additionalLocales.map((locale) => ({
+    params: { locale },
+    props: { locale },
+  }));
+}
+
+const { locale } = Astro.props as { locale: AdditionalLocale };
+const games = await getCollection("games");
+---
+
+<LocalizedHome
+  locale={locale}
+  games={games}
+  translations={localizedGames[locale]}
+/>

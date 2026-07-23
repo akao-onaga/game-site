@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import GameDetail from "../../../components/GameDetail.astro";
+import {
+  additionalLocales,
+  type AdditionalLocale,
+} from "../../../i18n/config";
+import { localizedGames } from "../../../i18n/games";
+
+export async function getStaticPaths() {
+  const games = await getCollection("games");
+  return additionalLocales.flatMap((locale) =>
+    games.map((game) => ({
+      params: { locale, slug: game.id },
+      props: { locale, game },
+    })),
+  );
+}
+
+const { locale, game } = Astro.props as {
+  locale: AdditionalLocale;
+  game: Awaited<ReturnType<typeof getCollection<"games">>>[number];
+};
+const translation = localizedGames[locale][game.id];
+
+if (!translation) {
+  throw new Error(`Missing ${locale} translation for ${game.id}`);
+}
+---
+
+<GameDetail game={game} locale={locale} translation={translation} />

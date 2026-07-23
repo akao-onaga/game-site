@@ -2,6 +2,8 @@
 // あかお × おナガ の会話形式でゲームを紹介するコンポーネント
 import PixelChara from "./PixelChara.astro";
 import PixelOnaga from "./PixelOnaga.astro";
+import type { Locale } from "../i18n/config";
+import { uiCopy } from "../i18n/ui";
 
 interface Line {
   speaker: "akao" | "onaga";
@@ -10,20 +12,11 @@ interface Line {
 
 interface Props {
   lines: Line[];
-  lang?: "ja" | "en";
+  locale?: Locale;
 }
 
-const { lines, lang = "ja" } = Astro.props;
-const names: Record<"ja" | "en", Record<Line["speaker"], string>> = {
-  ja: {
-    akao: "あかお",
-    onaga: "おナガ",
-  },
-  en: {
-    akao: "Akao",
-    onaga: "Onaga",
-  },
-};
+const { lines, locale = "ja" } = Astro.props;
+const names = uiCopy[locale].game;
 ---
 
 <div class="dialogue">
@@ -38,7 +31,7 @@ const names: Record<"ja" | "en", Record<Line["speaker"], string>> = {
               <PixelOnaga size={46} />
             )}
           </div>
-          <span class="dialogue-name">{names[lang][line.speaker]}</span>
+          <span class="dialogue-name">{names[line.speaker]}</span>
         </div>
         <p class="dialogue-bubble">{line.text}</p>
       </div>

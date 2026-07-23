@@ -2,61 +2,68 @@
 import { render, type CollectionEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Dialogue from "./Dialogue.astro";
+import {
+  getLocalePrefix,
+  localeMeta,
+  type Locale,
+} from "../i18n/config";
+import type { GameTranslation } from "../i18n/game";
+import { uiCopy } from "../i18n/ui";
 
 interface Props {
   game: CollectionEntry<"games"> | CollectionEntry<"gamesEn">;
-  lang?: "ja" | "en";
+  locale?: Locale;
+  translation?: GameTranslation;
 }
 
-const { game, lang = "ja" } = Astro.props;
-const isEnglish = lang === "en";
+const { game, locale = "ja", translation } = Astro.props;
 const { Content } = await render(game);
-const copy = isEnglish
-  ? {
-      project: "100-Game Project",
-      genre: "Genre",
-      platforms: "Platforms",
-      releaseDate: "Release date",
-      back: "← Back to all games",
-    }
-  : {
-      project: "100本投稿企画",
-      genre: "ジャンル",
-      platforms: "プラットフォーム",
-      releaseDate: "リリース日",
-      back: "← ゲーム一覧にもどる",
-    };
+const copy = uiCopy[locale].game;
+const view = translation ?? game.data;
 const releaseLabel = game.data.releaseDate.toLocaleDateString(
-  isEnglish ? "en-US" : "ja-JP",
+  localeMeta[locale].dateLocale,
   {
     year: "numeric",
     month: "long",
     day: "numeric",
   },
 );
-const localeBase = isEnglish ? "/en" : "";
+const localeBase = getLocalePrefix(locale);
 const gameListHref =
   game.data.category === "ios"
     ? `${localeBase}/#ios`
     : `${localeBase}/#unityroom`;
 const heroIcon = game.data.icon ?? game.data.cover;
-const appIconAlt = isEnglish
-  ? `${game.data.title} app icon`
-  : `${game.data.title}のアプリアイコン`;
-const mainImageAlt = isEnglish
-  ? `${game.data.title} main image`
-  : `${game.data.title}のメイン画像`;
+const appIconAlt =
+  locale === "ja"
+    ? `${view.title}の${copy.appIcon}`
+    : `${view.title} ${copy.appIcon}`;
+const mainImageAlt =
+  locale === "ja"
+    ? `${view.title}の${copy.mainImage}`
+    : `${view.title} ${copy.mainImage}`;
 const screenshotAlt = (index: number) =>
-  isEnglish
-    ? `${game.data.title} screenshot ${index + 1}`
-    : `${game.data.title}のスクリーンショット${index + 1}`;
+  locale === "ja"
+    ? `${view.title}の${copy.screenshot}${index + 1}`
+    : `${view.title} ${copy.screenshot} ${index + 1}`;
+const externalLinks = game.data.links.map((link) => {
+  if (game.data.category === "ios") {
+    const appId = link.url.match(/id(\d+)/)?.[1];
+    return {
+      label: copy.viewAppStore,
+      url: appId ? `https://apps.apple.com/app/id${appId}` : link.url,
+    };
+  }
+
+  return { label: copy.playUnityroom, url: link.url };
+});
 ---
 
 <BaseLayout
-  title={game.data.title}
-  description={game.data.catch}
+  title={view.title}
+  description={view.catch}
   image={game.data.cover}
-  lang={lang}
+  locale={locale}
 >
   <div style={`--card-color: ${game.data.color}`}>
     <section class="game-hero">
@@ -74,19 +81,19 @@ const screenshotAlt = (index: number) =>
             )
           }
           <div class="game-hero-text">
-            <h1>{game.data.title}</h1>
-            <p class="catch">{game.data.catch}</p>
+            <h1>{view.title}</h1>
+            <p class="catch">{view.catch}</p>
             <div class="badges">
               {
                 game.data.unityroomNo && (
                   <span class="badge badge-no">
-                    {isEnglish
-                      ? `${copy.project} #${game.data.unityroomNo}`
-                      : `${copy.project} ${game.data.unityroomNo}本目`}
+                    {locale === "ja"
+                      ? `${copy.project} ${game.data.unityroomNo}本目`
+                      : `${copy.project} #${game.data.unityroomNo}`}
                   </span>
                 )
               }
-              <span class="badge">{game.data.genre}</span>
+              <span class="badge">{view.genre}</span>
               {game.data.platforms.map((platform) => (
                 <span class="badge">{platform}</span>
               ))}
@@ -124,12 +131,44 @@ const screenshotAlt = (index: number) =>
             }
           </div>
           {
-            game.data.dialogue.length > 0 && (
-              <Dialogue lines={game.data.dialogue} lang={lang} />
+            view.dialogue.length > 0 && (
+              <Dialogue lines={view.dialogue} locale={locale} />
             )
           }
           <div class="prose">
-            <Content />
+            {
+              translation ? (
+                <>
+                  <h2>{copy.features}</h2>
+                  <ul>
+                    {translation.features.map((feature) => (
+                      <li>{feature}</li>
+                    ))}
+                  </ul>
+                  {
+                    translation.controls &&
+                      translation.controls.length > 0 && (
+                        <>
+                          <h2>{copy.howToPlay}</h2>
+                          <ul>
+                            {translation.controls.map((control) => (
+                              <li>
+                                {control.label && (
+                                  <strong>{control.label}: </strong>
+                                )}
+                                {control.text}
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      )
+                  }
+                  {translation.notes?.map((note) => <p>{note}</p>)}
+                </>
+              ) : (
+                <Content />
+              )
+            }
           </div>
           <a class="back-link" href={gameListHref}>{copy.back}</a>
         </div>
@@ -137,14 +176,14 @@ const screenshotAlt = (index: number) =>
         <aside class="info-box">
           <dl>
             <dt>{copy.genre}</dt>
-            <dd>{game.data.genre}</dd>
+            <dd>{view.genre}</dd>
             <dt>{copy.platforms}</dt>
             <dd>{game.data.platforms.join(" / ")}</dd>
             <dt>{copy.releaseDate}</dt>
             <dd>{releaseLabel}</dd>
           </dl>
           {
-            game.data.links.map((link) => (
+            externalLinks.map((link) => (
               <a class="btn" href={link.url} target="_blank" rel="noopener">
                 {link.label}
               </a>

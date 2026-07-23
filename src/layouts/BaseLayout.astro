@@ -1,14 +1,21 @@
 ---
 import "../styles/global.css";
 import PixelChara from "../components/PixelChara.astro";
+import {
+  defaultLocale,
+  getLocalizedPath,
+  localeCodes,
+  localeMeta,
+  type Locale,
+} from "../i18n/config";
+import { uiCopy } from "../i18n/ui";
 
 interface Props {
   title?: string;
   description?: string;
   /** OGP用の画像(絶対URL、またはpublic/からのパス) */
   image?: string;
-  lang?: "ja" | "en";
-  alternateHref?: string;
+  locale?: Locale;
 }
 
 const xUrl = "https://x.com/akaogame0124";
@@ -18,56 +25,30 @@ const cfAnalyticsToken = "362b6cd98b3c466699db4f607779ffdc";
 const {
   title,
   image = "/ogp.png",
-  lang = "ja",
-  alternateHref: providedAlternateHref,
+  locale = defaultLocale,
 } = Astro.props;
 
-const isEnglish = lang === "en";
-const copy = isEnglish
-  ? {
-      siteName: "Akao Game Development",
-      description:
-        "Games by indie developer Akao, including the unityroom 100-Game Project.",
-      unityroom: "100 Games",
-      ios: "iOS Games",
-      about: "About",
-      updates: "Follow the latest releases on",
-      privacy: "Privacy Policy",
-      language: "日本語",
-      languageLabel: "View this page in Japanese",
-    }
-  : {
-      siteName: "あかお＠ゲーム開発",
-      description:
-        "個人ゲーム開発者「あかお」の作品紹介サイト。unityroom 100本投稿企画に挑戦中!",
-      unityroom: "100本企画",
-      ios: "iOSアプリ",
-      about: "開発者",
-      updates: "最新情報は",
-      privacy: "プライバシーポリシー",
-      language: "EN",
-      languageLabel: "View this page in English",
-    };
-
+const copy = uiCopy[locale].layout;
+const meta = localeMeta[locale];
 const description = Astro.props.description ?? copy.description;
 const siteName = copy.siteName;
 const pageTitle = title ? `${title} | ${siteName}` : siteName;
 const currentPath = Astro.url.pathname;
-const shouldDetectLanguage = currentPath === "/" && !isEnglish;
-const alternateHref =
-  providedAlternateHref ??
-  (isEnglish
-    ? currentPath.replace(/^\/en(?=\/|$)/, "") || "/"
-    : currentPath === "/"
-      ? "/en/"
-      : `/en${currentPath}`);
-const japaneseHref = isEnglish ? alternateHref : currentPath;
-const englishHref = isEnglish ? currentPath : alternateHref;
+const shouldDetectLanguage =
+  currentPath === "/" && locale === defaultLocale;
 const absoluteUrl = (path: string) =>
   Astro.site ? new URL(path, Astro.site).href : undefined;
 const canonicalUrl = absoluteUrl(currentPath);
-const japaneseUrl = absoluteUrl(japaneseHref);
-const englishUrl = absoluteUrl(englishHref);
+const alternateLinks = localeCodes.map((targetLocale) => ({
+  locale: targetLocale,
+  label: localeMeta[targetLocale].label,
+  hreflang: localeMeta[targetLocale].hreflang,
+  href: getLocalizedPath(currentPath, targetLocale),
+  absoluteHref: absoluteUrl(getLocalizedPath(currentPath, targetLocale)),
+}));
+const defaultUrl = absoluteUrl(
+  getLocalizedPath(currentPath, defaultLocale),
+);
 
 // 相対パスの画像は site 設定(astro.config.mjs)があるときだけ絶対URL化できる
 const ogImage = image
@@ -80,25 +61,41 @@ const ogImage = image
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={meta.htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
-    {japaneseUrl && <link rel="alternate" hreflang="ja" href={japaneseUrl} />}
-    {englishUrl && <link rel="alternate" hreflang="en" href={englishUrl} />}
-    {japaneseUrl && <link rel="alternate" hreflang="x-default" href={japaneseUrl} />}
+    {
+      alternateLinks.map(
+        (link) =>
+          link.absoluteHref && (
+            <link
+              rel="alternate"
+              hreflang={link.hreflang}
+              href={link.absoluteHref}
+            />
+          ),
+      )
+    }
+    {defaultUrl && <link rel="alternate" hreflang="x-default" href={defaultUrl} />}
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:locale" content={isEnglish ? "en_US" : "ja_JP"} />
-    <meta
-      property="og:locale:alternate"
-      content={isEnglish ? "ja_JP" : "en_US"}
-    />
+    <meta property="og:locale" content={meta.ogLocale} />
+    {
+      localeCodes
+        .filter((targetLocale) => targetLocale !== locale)
+        .map((targetLocale) => (
+          <meta
+            property="og:locale:alternate"
+            content={localeMeta[targetLocale].ogLocale}
+          />
+        ))
+    }
     {ogImage && <meta property="og:image" content={ogImage} />}
     <meta
       name="twitter:card"
@@ -115,10 +112,24 @@ const ogImage = image
       shouldDetectLanguage && (
         <script is:inline>
           (() => {
-            const savedLanguage = document.cookie
+            const supportedLocales = [
+              "ja",
+              "en",
+              "zh-cn",
+              "zh-tw",
+              "ko",
+              "es",
+              "fr",
+              "de",
+              "pt-br",
+            ];
+            const savedValue = document.cookie
               .split("; ")
               .find((entry) => entry.startsWith("akao_language="))
               ?.split("=")[1];
+            const savedLanguage = supportedLocales.includes(savedValue)
+              ? savedValue
+              : null;
 
             if (savedLanguage === "ja") return;
             if (
@@ -128,14 +139,29 @@ const ogImage = image
               return;
             }
 
-            const preferredLanguage =
-              savedLanguage === "en"
-                ? "en"
-                : (navigator.languages?.[0] ?? navigator.language);
+            const detectLocale = (language) => {
+              const normalized = language?.toLowerCase() ?? "";
+              if (normalized.startsWith("zh")) {
+                return /(?:hant|tw|hk|mo)/.test(normalized)
+                  ? "zh-tw"
+                  : "zh-cn";
+              }
+              if (normalized.startsWith("ko")) return "ko";
+              if (normalized.startsWith("es")) return "es";
+              if (normalized.startsWith("fr")) return "fr";
+              if (normalized.startsWith("de")) return "de";
+              if (normalized.startsWith("pt")) return "pt-br";
+              if (normalized.startsWith("ja")) return "ja";
+              return "en";
+            };
 
-            if (preferredLanguage?.toLowerCase().startsWith("en")) {
+            const targetLocale =
+              savedLanguage ??
+              detectLocale(navigator.languages?.[0] ?? navigator.language);
+
+            if (targetLocale !== "ja") {
               window.location.replace(
-                `/en/${window.location.search}${window.location.hash}`,
+                `/${targetLocale}/${window.location.search}${window.location.hash}`,
               );
             }
           })();
@@ -146,25 +172,32 @@ const ogImage = image
   <body>
     <header class="site-header">
       <div class="container">
-        <a class="site-logo" href={isEnglish ? "/en/" : "/"}>
+        <a class="site-logo" href={getLocalizedPath("/", locale)}>
           <PixelChara size={22} />
           {siteName}
         </a>
         <nav class="site-nav">
-          <a href={isEnglish ? "/en/#unityroom" : "/#unityroom"}>
+          <a href={`${getLocalizedPath("/", locale)}#unityroom`}>
             {copy.unityroom}
           </a>
-          <a href={isEnglish ? "/en/#ios" : "/#ios"}>{copy.ios}</a>
-          <a href={isEnglish ? "/en/about/" : "/about/"}>{copy.about}</a>
-          <a
-            class="lang-switch"
-            href={alternateHref}
-            hreflang={isEnglish ? "ja" : "en"}
-            aria-label={copy.languageLabel}
-            data-language-choice={isEnglish ? "ja" : "en"}
-          >
-            {copy.language}
-          </a>
+          <a href={`${getLocalizedPath("/", locale)}#ios`}>{copy.ios}</a>
+          <a href={getLocalizedPath("/about/", locale)}>{copy.about}</a>
+          <label class="language-select">
+            <span class="sr-only">{copy.languageLabel}</span>
+            <select aria-label={copy.languageLabel} data-language-select>
+              {
+                alternateLinks.map((link) => (
+                  <option
+                    value={link.href}
+                    data-language-code={link.locale}
+                    selected={link.locale === locale}
+                  >
+                    {link.label}
+                  </option>
+                ))
+              }
+            </select>
+          </label>
         </nav>
       </div>
     </header>
@@ -176,13 +209,13 @@ const ogImage = image
     <footer class="site-footer">
       <div class="container">
         <p>
-          {copy.updates}
+          {copy.updatesBefore}
           {" "}
           <a href={xUrl} target="_blank" rel="noopener">X (Twitter)</a>
-          {!isEnglish && " で発信中"}
+          {copy.updatesAfter && ` ${copy.updatesAfter}`}
         </p>
         <p style="margin: 4px 0 12px;">
-          <a href={isEnglish ? "/en/privacy/" : "/privacy/"}>{copy.privacy}</a>
+          <a href={getLocalizedPath("/privacy/", locale)}>{copy.privacy}</a>
         </p>
         © {new Date().getFullYear()} {siteName}
       </div>
@@ -199,10 +232,12 @@ const ogImage = image
     }
     <script is:inline>
       document
-        .querySelector("[data-language-choice]")
-        ?.addEventListener("click", (event) => {
-          const language = event.currentTarget.dataset.languageChoice;
+        .querySelector("[data-language-select]")
+        ?.addEventListener("change", (event) => {
+          const selectedOption = event.currentTarget.selectedOptions[0];
+          const language = selectedOption.dataset.languageCode;
           document.cookie = `akao_language=${language}; Path=/; Max-Age=31536000; SameSite=Lax`;
+          window.location.assign(event.currentTarget.value);
         });
     </script>
   </body>
