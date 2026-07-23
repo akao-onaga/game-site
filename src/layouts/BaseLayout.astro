@@ -53,6 +53,7 @@ const description = Astro.props.description ?? copy.description;
 const siteName = copy.siteName;
 const pageTitle = title ? `${title} | ${siteName}` : siteName;
 const currentPath = Astro.url.pathname;
+const shouldDetectLanguage = currentPath === "/" && !isEnglish;
 const alternateHref =
   providedAlternateHref ??
   (isEnglish
@@ -110,6 +111,37 @@ const ogImage = image
       href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap"
       rel="stylesheet"
     />
+    {
+      shouldDetectLanguage && (
+        <script is:inline>
+          (() => {
+            const savedLanguage = document.cookie
+              .split("; ")
+              .find((entry) => entry.startsWith("akao_language="))
+              ?.split("=")[1];
+
+            if (savedLanguage === "ja") return;
+            if (
+              savedLanguage !== "en" &&
+              /bot|crawler|spider|crawling/i.test(navigator.userAgent)
+            ) {
+              return;
+            }
+
+            const preferredLanguage =
+              savedLanguage === "en"
+                ? "en"
+                : (navigator.languages?.[0] ?? navigator.language);
+
+            if (preferredLanguage?.toLowerCase().startsWith("en")) {
+              window.location.replace(
+                `/en/${window.location.search}${window.location.hash}`,
+              );
+            }
+          })();
+        </script>
+      )
+    }
   </head>
   <body>
     <header class="site-header">
@@ -129,6 +161,7 @@ const ogImage = image
             href={alternateHref}
             hreflang={isEnglish ? "ja" : "en"}
             aria-label={copy.languageLabel}
+            data-language-choice={isEnglish ? "ja" : "en"}
           >
             {copy.language}
           </a>
@@ -164,5 +197,13 @@ const ogImage = image
         />
       )
     }
+    <script is:inline>
+      document
+        .querySelector("[data-language-choice]")
+        ?.addEventListener("click", (event) => {
+          const language = event.currentTarget.dataset.languageChoice;
+          document.cookie = `akao_language=${language}; Path=/; Max-Age=31536000; SameSite=Lax`;
+        });
+    </script>
   </body>
 </html>
