@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PixelChara from "../../components/PixelChara.astro";
+import PixelOnaga from "../../components/PixelOnaga.astro";
+---
+
+<BaseLayout title="About the Developer" lang="en">
+  <section class="section" style="padding-bottom: 72px;">
+    <div class="container" style="max-width: 720px;">
+      <div style="display: flex; justify-content: center; padding: 8px 0 24px;">
+        <PixelChara size={72} />
+      </div>
+      <h2 style="font-size: 1.4rem;">About the Developer</h2>
+      <p>Hello, I am Akao, an independent game developer.</p>
+      <p>
+        I turn ideas into games and publish them as quickly as I can. I am
+        currently working on the <strong>unityroom 100-Game Project</strong>,
+        a challenge to release 100 browser games on unityroom. Games that find
+        an audience may grow into full releases. Progress and new game
+        announcements are posted on X.
+      </p>
+
+      <h3>Meet My Partner</h3>
+      <div
+        style="display: flex; align-items: center; gap: 24px; background: #fff; border: 4px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); padding: 20px 24px; margin: 16px 0 36px;"
+      >
+        <div style="flex-shrink: 0;">
+          <PixelOnaga size={76} />
+        </div>
+        <p style="margin: 0;">
+          <strong>Onaga</strong><br />
+          Akao's long-tailed tit companion. On each game page, Onaga asks
+          questions and helps introduce the game.
+        </p>
+      </div>
+
+      <h3>Links</h3>
+      <ul>
+        <li>
+          X (Twitter):
+          <a href="https://x.com/akaogame0124" target="_blank" rel="noopener"
+            >@akaogame0124</a
+          >
+        </li>
+        <li>
+          unityroom:
+          <a
+            href="https://unityroom.com/users/pu8lzf2nc9ht5o1r46sg"
+            target="_blank"
+            rel="noopener">Akao's profile</a
+          >
+        </li>
+        <li>
+          App Store:
+          <a
+            href="https://apps.apple.com/jp/developer/atsuki-murayama/id1721887609"
+            target="_blank"
+            rel="noopener">Developer page</a
+          >
+        </li>
+      </ul>
+
+      <h3>Contact</h3>
+      <p>
+        For feedback, questions, or work inquiries, send a direct message on
+        <a href="https://x.com/akaogame0124" target="_blank" rel="noopener"
+          >X (@akaogame0124)</a
+        >
+        or email
+        <a href="mailto:contact@akao-game.com">contact@akao-game.com</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

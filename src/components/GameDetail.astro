@@ -1,0 +1,157 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Dialogue from "./Dialogue.astro";
+
+interface Props {
+  game: CollectionEntry<"games"> | CollectionEntry<"gamesEn">;
+  lang?: "ja" | "en";
+}
+
+const { game, lang = "ja" } = Astro.props;
+const isEnglish = lang === "en";
+const { Content } = await render(game);
+const copy = isEnglish
+  ? {
+      project: "100-Game Project",
+      genre: "Genre",
+      platforms: "Platforms",
+      releaseDate: "Release date",
+      back: "← Back to all games",
+    }
+  : {
+      project: "100本投稿企画",
+      genre: "ジャンル",
+      platforms: "プラットフォーム",
+      releaseDate: "リリース日",
+      back: "← ゲーム一覧にもどる",
+    };
+const releaseLabel = game.data.releaseDate.toLocaleDateString(
+  isEnglish ? "en-US" : "ja-JP",
+  {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  },
+);
+const localeBase = isEnglish ? "/en" : "";
+const gameListHref =
+  game.data.category === "ios"
+    ? `${localeBase}/#ios`
+    : `${localeBase}/#unityroom`;
+const heroIcon = game.data.icon ?? game.data.cover;
+const appIconAlt = isEnglish
+  ? `${game.data.title} app icon`
+  : `${game.data.title}のアプリアイコン`;
+const mainImageAlt = isEnglish
+  ? `${game.data.title} main image`
+  : `${game.data.title}のメイン画像`;
+const screenshotAlt = (index: number) =>
+  isEnglish
+    ? `${game.data.title} screenshot ${index + 1}`
+    : `${game.data.title}のスクリーンショット${index + 1}`;
+---
+
+<BaseLayout
+  title={game.data.title}
+  description={game.data.catch}
+  image={game.data.cover}
+  lang={lang}
+>
+  <div style={`--card-color: ${game.data.color}`}>
+    <section class="game-hero">
+      <div class="container">
+        <div
+          class={`game-hero-body ${game.data.category === "ios" ? "with-icon" : ""}`}
+        >
+          {
+            game.data.category === "ios" && (
+              <img
+                class="game-hero-icon"
+                src={heroIcon}
+                alt={appIconAlt}
+              />
+            )
+          }
+          <div class="game-hero-text">
+            <h1>{game.data.title}</h1>
+            <p class="catch">{game.data.catch}</p>
+            <div class="badges">
+              {
+                game.data.unityroomNo && (
+                  <span class="badge badge-no">
+                    {isEnglish
+                      ? `${copy.project} #${game.data.unityroomNo}`
+                      : `${copy.project} ${game.data.unityroomNo}本目`}
+                  </span>
+                )
+              }
+              <span class="badge">{game.data.genre}</span>
+              {game.data.platforms.map((platform) => (
+                <span class="badge">{platform}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="game-detail">
+        <div>
+          <div
+            class={`screenshots ${game.data.category === "ios" && game.data.screenshots.length > 0 ? "screenshots-phone" : ""}`}
+          >
+            {
+              !(
+                game.data.category === "ios" &&
+                game.data.screenshots.length > 0
+              ) && (
+                <img
+                  src={game.data.cover}
+                  alt={mainImageAlt}
+                />
+              )
+            }
+            {
+              game.data.screenshots.map((shot, index) => (
+                <img
+                  src={shot}
+                  alt={screenshotAlt(index)}
+                  loading="lazy"
+                />
+              ))
+            }
+          </div>
+          {
+            game.data.dialogue.length > 0 && (
+              <Dialogue lines={game.data.dialogue} lang={lang} />
+            )
+          }
+          <div class="prose">
+            <Content />
+          </div>
+          <a class="back-link" href={gameListHref}>{copy.back}</a>
+        </div>
+
+        <aside class="info-box">
+          <dl>
+            <dt>{copy.genre}</dt>
+            <dd>{game.data.genre}</dd>
+            <dt>{copy.platforms}</dt>
+            <dd>{game.data.platforms.join(" / ")}</dd>
+            <dt>{copy.releaseDate}</dt>
+            <dd>{releaseLabel}</dd>
+          </dl>
+          {
+            game.data.links.map((link) => (
+              <a class="btn" href={link.url} target="_blank" rel="noopener">
+                {link.label}
+              </a>
+            ))
+          }
+        </aside>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

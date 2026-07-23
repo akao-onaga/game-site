@@ -1,0 +1,150 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PixelScene from "../../components/PixelScene.astro";
+import PixelCloud from "../../components/PixelCloud.astro";
+import GameCard from "../../components/GameCard.astro";
+
+const games = await getCollection("gamesEn");
+
+const unityroomGames = games
+  .filter((game) => game.data.category === "unityroom")
+  .sort((a, b) => {
+    const numberDiff = (b.data.unityroomNo ?? 0) - (a.data.unityroomNo ?? 0);
+    return numberDiff || b.data.releaseDate.getTime() - a.data.releaseDate.getTime();
+  });
+
+const iosGames = games
+  .filter((game) => game.data.category === "ios")
+  .sort((a, b) => b.data.releaseDate.getTime() - a.data.releaseDate.getTime());
+
+const GOAL = 100;
+const published = unityroomGames.filter((game) => game.data.unityroomNo).length;
+const xUrl = "https://x.com/akaogame0124";
+---
+
+<BaseLayout lang="en">
+  <section class="hero">
+    <PixelCloud width={90} style="top: 36px; left: 12%;" />
+    <PixelCloud width={70} style="top: 90px; right: 10%;" />
+    <h1>
+      New ideas become<br />new games.
+    </h1>
+    <p>A collection of games by indie developer Akao.</p>
+    <div class="hero-buttons">
+      <a class="hero-btn" href="#unityroom">
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 16 16"
+          shape-rendering="crispEdges"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <rect x="0" y="1" width="16" height="14" fill="#16161c"></rect>
+          <rect x="2" y="3" width="12" height="2" fill="#f7e08a"></rect>
+          <rect x="2" y="6" width="12" height="7" fill="#3be2f0"></rect>
+          <rect x="6" y="7" width="2" height="5" fill="#16161c"></rect>
+          <rect x="8" y="8" width="2" height="3" fill="#16161c"></rect>
+        </svg>
+        Play in your browser
+      </a>
+      <a class="hero-btn" href="#ios">
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 16 16"
+          shape-rendering="crispEdges"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <rect x="3" y="0" width="10" height="16" fill="#16161c"></rect>
+          <rect x="5" y="2" width="6" height="10" fill="#3be2f0"></rect>
+          <rect x="7" y="13" width="2" height="1" fill="#fff8e8"></rect>
+        </svg>
+        Play on iPhone & iPad
+      </a>
+    </div>
+    <PixelScene />
+  </section>
+  <div class="pixel-edge"></div>
+
+  <div class="ground">
+    <section class="section" id="unityroom">
+      <div class="container">
+        <h2 class="section-title with-icon">
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 16 16"
+            shape-rendering="crispEdges"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <rect x="0" y="1" width="16" height="14" fill="#16161c"></rect>
+            <rect x="2" y="3" width="12" height="2" fill="#f7e08a"></rect>
+            <rect x="3" y="3" width="1" height="1" fill="#16161c"></rect>
+            <rect x="5" y="3" width="1" height="1" fill="#16161c"></rect>
+            <rect x="2" y="6" width="12" height="7" fill="#3be2f0"></rect>
+            <rect x="6" y="7" width="2" height="5" fill="#16161c"></rect>
+            <rect x="8" y="8" width="2" height="3" fill="#16161c"></rect>
+            <rect x="10" y="9" width="1" height="1" fill="#16161c"></rect>
+          </svg>
+          unityroom 100-Game Project
+        </h2>
+        <p class="section-lead">
+          I am publishing 100 games on unityroom. Follow the challenge on
+          <a href={xUrl} target="_blank" rel="noopener">X (Twitter)</a>.
+          Every game runs in your browser.
+        </p>
+        <div
+          class="progress"
+          role="progressbar"
+          aria-label="Games published"
+          aria-valuenow={published}
+          aria-valuemin="0"
+          aria-valuemax={GOAL}
+        >
+          <div class="progress-fill" style={`width: ${(published / GOAL) * 100}%`}>
+          </div>
+        </div>
+        <p class="progress-label">{published} / {GOAL} games published</p>
+        <div class="game-grid">
+          {unityroomGames.map((game) => <GameCard game={game} lang="en" />)}
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="pixel-edge-dirt"></div>
+  <div class="ground-dirt">
+    <section class="section" id="ios">
+      <div class="container">
+        <h2 class="section-title with-icon">
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 16 16"
+            shape-rendering="crispEdges"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <rect x="3" y="0" width="10" height="16" fill="#16161c"></rect>
+            <rect x="5" y="2" width="6" height="10" fill="#3be2f0"></rect>
+            <rect x="7" y="13" width="2" height="1" fill="#fff8e8"></rect>
+            <rect x="6" y="4" width="4" height="4" fill="#f7e08a"></rect>
+            <rect x="7" y="5" width="1" height="1" fill="#16161c"></rect>
+            <rect x="9" y="5" width="1" height="1" fill="#16161c"></rect>
+          </svg>
+          iOS Games
+        </h2>
+        <p class="section-lead">
+          Games available on the App Store for iPhone and iPad.
+        </p>
+        <div class="game-grid">
+          {iosGames.map((game) => <GameCard game={game} lang="en" />)}
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

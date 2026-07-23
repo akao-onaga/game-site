@@ -77,6 +77,8 @@ a {
 
 .site-nav {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 6px;
 }
 
@@ -87,6 +89,7 @@ a {
   padding: 5px 12px;
   border: 3px solid transparent;
   transition: background 0.15s;
+  white-space: nowrap;
 }
 
 .site-nav a:hover {
@@ -94,7 +97,32 @@ a {
   border-color: var(--ink);
 }
 
+.site-nav .lang-switch {
+  color: #fff;
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.site-nav .lang-switch:hover {
+  color: var(--ink);
+  background: var(--yellow);
+}
+
 @media (max-width: 560px) {
+  html[lang="en"] .site-header .container {
+    justify-content: center;
+  }
+
+  html[lang="en"] .site-logo {
+    width: 100%;
+    justify-content: center;
+    letter-spacing: 0;
+  }
+
+  html[lang="en"] .site-nav {
+    justify-content: center;
+  }
+
   .site-logo {
     font-size: 0.95rem;
     gap: 7px;

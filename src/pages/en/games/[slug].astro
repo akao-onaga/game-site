@@ -1,9 +1,9 @@
 ---
 import { getCollection } from "astro:content";
-import GameDetail from "../../components/GameDetail.astro";
+import GameDetail from "../../../components/GameDetail.astro";
 
 export async function getStaticPaths() {
-  const games = await getCollection("games");
+  const games = await getCollection("gamesEn");
   return games.map((game) => ({
     params: { slug: game.id },
     props: { game },
@@ -13,4 +13,4 @@ export async function getStaticPaths() {
 const { game } = Astro.props;
 ---
 
-<GameDetail game={game} lang="ja" />
+<GameDetail game={game} lang="en" />

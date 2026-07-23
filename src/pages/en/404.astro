@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PixelChara from "../../components/PixelChara.astro";
+---
+
+<BaseLayout title="Page Not Found" lang="en" alternateHref="/404.html">
+  <section class="section" style="text-align: center; padding-bottom: 96px;">
+    <div class="container">
+      <p
+        style="font-size: clamp(3rem, 10vw, 5rem); font-weight: 700; margin: 24px 0 0;"
+      >
+        404
+      </p>
+      <div style="display: flex; justify-content: center; padding: 8px 0 24px;">
+        <PixelChara size={64} />
+      </div>
+      <p>The page you are looking for could not be found.</p>
+      <p>
+        <a class="back-link" href="/en/">← Back to the home page</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

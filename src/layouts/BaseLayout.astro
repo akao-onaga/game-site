@@ -7,19 +7,66 @@ interface Props {
   description?: string;
   /** OGP用の画像(絶対URL、またはpublic/からのパス) */
   image?: string;
+  lang?: "ja" | "en";
+  alternateHref?: string;
 }
 
-const siteName = "あかお＠ゲーム開発";
 const xUrl = "https://x.com/akaogame0124";
 // Cloudflareダッシュボード > Web Analytics でサイト登録後、発行されたトークンを設定する
 // 空のままだと計測スクリプトは出力されない
 const cfAnalyticsToken = "362b6cd98b3c466699db4f607779ffdc";
 const {
   title,
-  description = "個人ゲーム開発者「あかお」の作品紹介サイト。unityroom 100本投稿企画に挑戦中!",
   image = "/ogp.png",
+  lang = "ja",
+  alternateHref: providedAlternateHref,
 } = Astro.props;
+
+const isEnglish = lang === "en";
+const copy = isEnglish
+  ? {
+      siteName: "Akao Game Development",
+      description:
+        "Games by indie developer Akao, including the unityroom 100-Game Project.",
+      unityroom: "100 Games",
+      ios: "iOS Games",
+      about: "About",
+      updates: "Follow the latest releases on",
+      privacy: "Privacy Policy",
+      language: "日本語",
+      languageLabel: "View this page in Japanese",
+    }
+  : {
+      siteName: "あかお＠ゲーム開発",
+      description:
+        "個人ゲーム開発者「あかお」の作品紹介サイト。unityroom 100本投稿企画に挑戦中!",
+      unityroom: "100本企画",
+      ios: "iOSアプリ",
+      about: "開発者",
+      updates: "最新情報は",
+      privacy: "プライバシーポリシー",
+      language: "EN",
+      languageLabel: "View this page in English",
+    };
+
+const description = Astro.props.description ?? copy.description;
+const siteName = copy.siteName;
 const pageTitle = title ? `${title} | ${siteName}` : siteName;
+const currentPath = Astro.url.pathname;
+const alternateHref =
+  providedAlternateHref ??
+  (isEnglish
+    ? currentPath.replace(/^\/en(?=\/|$)/, "") || "/"
+    : currentPath === "/"
+      ? "/en/"
+      : `/en${currentPath}`);
+const japaneseHref = isEnglish ? alternateHref : currentPath;
+const englishHref = isEnglish ? currentPath : alternateHref;
+const absoluteUrl = (path: string) =>
+  Astro.site ? new URL(path, Astro.site).href : undefined;
+const canonicalUrl = absoluteUrl(currentPath);
+const japaneseUrl = absoluteUrl(japaneseHref);
+const englishUrl = absoluteUrl(englishHref);
 
 // 相対パスの画像は site 設定(astro.config.mjs)があるときだけ絶対URL化できる
 const ogImage = image
@@ -32,16 +79,25 @@ const ogImage = image
 ---
 
 <!doctype html>
-<html lang="ja">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    {japaneseUrl && <link rel="alternate" hreflang="ja" href={japaneseUrl} />}
+    {englishUrl && <link rel="alternate" hreflang="en" href={englishUrl} />}
+    {japaneseUrl && <link rel="alternate" hreflang="x-default" href={japaneseUrl} />}
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
+    <meta property="og:locale" content={isEnglish ? "en_US" : "ja_JP"} />
+    <meta
+      property="og:locale:alternate"
+      content={isEnglish ? "ja_JP" : "en_US"}
+    />
     {ogImage && <meta property="og:image" content={ogImage} />}
     <meta
       name="twitter:card"
@@ -58,14 +114,24 @@ const ogImage = image
   <body>
     <header class="site-header">
       <div class="container">
-        <a class="site-logo" href="/">
+        <a class="site-logo" href={isEnglish ? "/en/" : "/"}>
           <PixelChara size={22} />
           {siteName}
         </a>
         <nav class="site-nav">
-          <a href="/#unityroom">100本企画</a>
-          <a href="/#ios">iOSアプリ</a>
-          <a href="/about/">開発者</a>
+          <a href={isEnglish ? "/en/#unityroom" : "/#unityroom"}>
+            {copy.unityroom}
+          </a>
+          <a href={isEnglish ? "/en/#ios" : "/#ios"}>{copy.ios}</a>
+          <a href={isEnglish ? "/en/about/" : "/about/"}>{copy.about}</a>
+          <a
+            class="lang-switch"
+            href={alternateHref}
+            hreflang={isEnglish ? "ja" : "en"}
+            aria-label={copy.languageLabel}
+          >
+            {copy.language}
+          </a>
         </nav>
       </div>
     </header>
@@ -77,13 +143,15 @@ const ogImage = image
     <footer class="site-footer">
       <div class="container">
         <p>
-          最新情報は <a href={xUrl} target="_blank" rel="noopener">X (Twitter)</a> で発信中
+          {copy.updates}
+          {" "}
+          <a href={xUrl} target="_blank" rel="noopener">X (Twitter)</a>
+          {!isEnglish && " で発信中"}
         </p>
         <p style="margin: 4px 0 12px;">
-          <a href="/privacy/">プライバシーポリシー</a>
+          <a href={isEnglish ? "/en/privacy/" : "/privacy/"}>{copy.privacy}</a>
         </p>
-        © {new Date().getFullYear()}
-        {siteName}
+        © {new Date().getFullYear()} {siteName}
       </div>
     </footer>
     {

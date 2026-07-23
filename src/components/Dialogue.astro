@@ -10,12 +10,19 @@ interface Line {
 
 interface Props {
   lines: Line[];
+  lang?: "ja" | "en";
 }
 
-const { lines } = Astro.props;
-const names: Record<Line["speaker"], string> = {
-  akao: "あかお",
-  onaga: "おナガ",
+const { lines, lang = "ja" } = Astro.props;
+const names: Record<"ja" | "en", Record<Line["speaker"], string>> = {
+  ja: {
+    akao: "あかお",
+    onaga: "おナガ",
+  },
+  en: {
+    akao: "Akao",
+    onaga: "Onaga",
+  },
 };
 ---
 
@@ -31,7 +38,7 @@ const names: Record<Line["speaker"], string> = {
               <PixelOnaga size={46} />
             )}
           </div>
-          <span class="dialogue-name">{names[line.speaker]}</span>
+          <span class="dialogue-name">{names[lang][line.speaker]}</span>
         </div>
         <p class="dialogue-bubble">{line.text}</p>
       </div>
