@@ -326,6 +326,41 @@ export const frGames: Record<string, GameTranslation> = {
     ],
     notes: ["Les réussites augmentent combo et FEVER ; les notes colorées restaurent DOPA. Les erreurs et mauvaises touches le réduisent."],
   },
+  "castle-pazzle": {
+    title: "CASTLE PAZZLE",
+    catch: "Mémorisez trois châteaux et reconstruisez-les dans ce contre-la-montre 3D.",
+    genre: "Puzzle",
+    dialogue: [
+      { speaker: "onaga", text: "Quel genre de jeu de construction est CASTLE PAZZLE ?" },
+      {
+        speaker: "akao",
+        text: "Mémorise trois châteaux, puis reconstruis-les au plus vite avec les pièces éparpillées.",
+      },
+      { speaker: "onaga", text: "Je peux garder les modèles sous les yeux pendant la construction ?" },
+      {
+        speaker: "akao",
+        text: "Une fois la construction lancée, tu dois compter sur ta mémoire. Fais pivoter les pièces et la caméra pour trouver chaque position et orientation.",
+      },
+      { speaker: "onaga", text: "Mémoriser vite compte donc autant que construire vite." },
+      {
+        speaker: "akao",
+        text: "Exactement. Le chrono s'arrête quand les trois châteaux sont terminés, avec aussi un mode Hard pour corser le défi.",
+      },
+    ],
+    features: [
+      "Puzzle 3D où il faut mémoriser et reconstruire trois châteaux",
+      "Glissez les pièces sur le sol ou sur les autres parties du château",
+      "Faites pivoter les pièces et la caméra pour trouver leur place et leur sens",
+      "Classements en ligne séparés pour les modes Normal et Hard",
+    ],
+    controls: [
+      { label: "Placer une pièce", text: "La faire glisser sur le sol ou sur le château" },
+      { label: "Tourner une pièce", text: "Touche R ou molette de la souris" },
+      { label: "Rotation inverse", text: "Touche Q" },
+      { label: "Tourner la caméra", text: "Glisser avec le bouton droit, glisser à gauche dans le vide ou utiliser les flèches" },
+    ],
+    notes: ["Reproduisez les trois châteaux comme les modèles et visez le meilleur temps."],
+  },
   "nazotoki-10s": {
     title: "Puzzle des 10",
     catch: "Créez dix fois 10 pour terminer cette aventure de calcul et d'énigmes.",

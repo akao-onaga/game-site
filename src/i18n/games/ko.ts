@@ -320,6 +320,41 @@ export const koGames: Record<string, GameTranslation> = {
     ],
     notes: ["성공하면 콤보와 FEVER가 오르고 색깔 노트는 DOPA도 회복합니다. MISS, 헛누름, 오입력은 DOPA를 줄입니다."],
   },
+  "castle-pazzle": {
+    title: "CASTLE PAZZLE",
+    catch: "세 개의 성을 기억하고 그대로 조립하는 타임 어택.",
+    genre: "퍼즐",
+    dialogue: [
+      { speaker: "onaga", text: "CASTLE PAZZLE은 어떤 성 만들기 게임이야?" },
+      {
+        speaker: "akao",
+        text: "처음에 보여 주는 세 개의 성을 기억한 뒤, 흩어진 부품으로 최대한 빨리 다시 만드는 게임이야.",
+      },
+      { speaker: "onaga", text: "만드는 동안 견본을 계속 볼 수 있어?" },
+      {
+        speaker: "akao",
+        text: "조립이 시작되면 기억에 의존해야 해. 부품과 카메라를 돌려 올바른 위치와 방향을 찾아야 하지.",
+      },
+      { speaker: "onaga", text: "빨리 만드는 것만큼 빨리 외우는 것도 중요하네." },
+      {
+        speaker: "akao",
+        text: "맞아. 세 개의 성을 모두 완성하면 기록이 정해지고, 더 어려운 Hard 모드에도 도전할 수 있어.",
+      },
+    ],
+    features: [
+      "세 개의 성을 기억하고 재현하는 3D 퍼즐",
+      "흩어진 성 부품을 드래그해 바닥이나 다른 부품 위에 배치",
+      "부품과 카메라를 회전해 올바른 위치와 방향을 판별",
+      "Normal과 Hard 모드별 온라인 클리어 타임 랭킹",
+    ],
+    controls: [
+      { label: "부품 배치", text: "바닥이나 성 위로 드래그" },
+      { label: "부품 회전", text: "R 키 또는 마우스 휠" },
+      { label: "역회전", text: "Q 키" },
+      { label: "카메라 회전", text: "오른쪽 드래그, 빈 곳 왼쪽 드래그 또는 방향키" },
+    ],
+    notes: ["견본과 똑같이 세 개의 성을 완성하고 최단 기록에 도전하세요."],
+  },
   "nazotoki-10s": {
     title: "10s 퍼즐",
     catch: "10을 열 개 만들어 클리어하는 수학 퍼즐 모험.",

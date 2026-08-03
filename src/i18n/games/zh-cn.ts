@@ -322,6 +322,41 @@ export const zhCnGames: Record<string, GameTranslation> = {
       "成功会增加连击和FEVER槽，彩色音符还会恢复DOPA。MISS、空按或按错都会减少DOPA。",
     ],
   },
+  "castle-pazzle": {
+    title: "CASTLE PAZZLE",
+    catch: "记住三座城堡，并按题目原样重建的计时挑战。",
+    genre: "益智",
+    dialogue: [
+      { speaker: "onaga", text: "CASTLE PAZZLE是怎样的城堡建造游戏？" },
+      {
+        speaker: "akao",
+        text: "先记住展示的三座城堡，再用散落的零件尽快把它们重建出来。",
+      },
+      { speaker: "onaga", text: "建造时还能一直看着示例吗？" },
+      {
+        speaker: "akao",
+        text: "开始建造后只能依靠记忆。旋转零件和镜头，找出正确的位置与方向。",
+      },
+      { speaker: "onaga", text: "看来记得快和建得快一样重要。" },
+      {
+        speaker: "akao",
+        text: "没错。完成三座城堡后计时结束，还可以挑战更难的Hard模式。",
+      },
+    ],
+    features: [
+      "记住并重建三座城堡的3D益智游戏",
+      "拖动散落的城堡零件，放到地面或其他城堡部件上",
+      "旋转零件和镜头，判断正确的位置与方向",
+      "普通与Hard模式分别设有在线通关时间排行榜",
+    ],
+    controls: [
+      { label: "放置零件", text: "拖到地面或城堡上" },
+      { label: "旋转零件", text: "R键或鼠标滚轮" },
+      { label: "反向旋转", text: "Q键" },
+      { label: "旋转镜头", text: "右键拖动、在空白处左键拖动或使用方向键" },
+    ],
+    notes: ["按照示例完成全部三座城堡，以最快通关时间为目标。"],
+  },
   "nazotoki-10s": {
     title: "10s谜题",
     catch: "做出十个10，完成这场算术解谜冒险。",

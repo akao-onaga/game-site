@@ -326,6 +326,41 @@ export const deGames: Record<string, GameTranslation> = {
     ],
     notes: ["Treffer erhöhen Kombo und FEVER; Farbnoten füllen DOPA. Fehler und falsche Tasten senken DOPA."],
   },
+  "castle-pazzle": {
+    title: "CASTLE PAZZLE",
+    catch: "Präge dir drei Burgen ein und baue sie im 3D-Zeitrennen nach.",
+    genre: "Puzzle",
+    dialogue: [
+      { speaker: "onaga", text: "Was für ein Burgenbauspiel ist CASTLE PAZZLE?" },
+      {
+        speaker: "akao",
+        text: "Präge dir drei Burgen ein und baue sie anschließend so schnell wie möglich aus den verstreuten Teilen nach.",
+      },
+      { speaker: "onaga", text: "Kann ich die Vorlagen beim Bauen weiter ansehen?" },
+      {
+        speaker: "akao",
+        text: "Sobald der Bau beginnt, zählt dein Gedächtnis. Drehe Teile und Kamera, um die richtige Position und Ausrichtung zu finden.",
+      },
+      { speaker: "onaga", text: "Schnelles Merken ist also genauso wichtig wie schnelles Bauen." },
+      {
+        speaker: "akao",
+        text: "Genau. Die Zeit stoppt, sobald alle drei Burgen fertig sind. Für mehr Herausforderung gibt es den Hard-Modus.",
+      },
+    ],
+    features: [
+      "3D-Puzzle zum Einprägen und Nachbauen von drei Burgen",
+      "Lose Burgteile auf den Boden oder andere Bauteile ziehen",
+      "Teile und Kamera drehen, um Position und Ausrichtung zu bestimmen",
+      "Getrennte Online-Bestenlisten für Normal und Hard",
+    ],
+    controls: [
+      { label: "Teil platzieren", text: "Auf den Boden oder die Burg ziehen" },
+      { label: "Teil drehen", text: "R-Taste oder Mausrad" },
+      { label: "Rückwärts drehen", text: "Q-Taste" },
+      { label: "Kamera drehen", text: "Rechts ziehen, im freien Bereich links ziehen oder Pfeiltasten" },
+    ],
+    notes: ["Baue alle drei Burgen exakt nach den Vorlagen und erreiche die schnellste Zeit."],
+  },
   "nazotoki-10s": {
     title: "10er-Rätsel",
     catch: "Erzeuge zehnmal die 10 in diesem Rechenabenteuer.",

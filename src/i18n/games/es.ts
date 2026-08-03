@@ -326,6 +326,41 @@ export const esGames: Record<string, GameTranslation> = {
     ],
     notes: ["Los aciertos aumentan combo y FEVER; las notas de color recuperan DOPA. Los fallos y teclas incorrectas reducen DOPA."],
   },
+  "castle-pazzle": {
+    title: "CASTLE PAZZLE",
+    catch: "Memoriza tres castillos y reconstruyelos en este contrarreloj 3D.",
+    genre: "Puzle",
+    dialogue: [
+      { speaker: "onaga", text: "¿Qué clase de juego de construir castillos es CASTLE PAZZLE?" },
+      {
+        speaker: "akao",
+        text: "Memoriza tres castillos y luego reconstrúyelos lo más rápido posible con las piezas sueltas.",
+      },
+      { speaker: "onaga", text: "¿Puedo seguir mirando los modelos mientras construyo?" },
+      {
+        speaker: "akao",
+        text: "Cuando empieza la construcción dependes de tu memoria. Gira las piezas y la cámara para encontrar cada posición y orientación correctas.",
+      },
+      { speaker: "onaga", text: "Así que memorizar rápido importa tanto como construir rápido." },
+      {
+        speaker: "akao",
+        text: "Exacto. El tiempo se detiene al completar los tres castillos y también puedes afrontar el modo Hard.",
+      },
+    ],
+    features: [
+      "Puzle 3D de memorizar y reconstruir tres castillos",
+      "Arrastra las piezas sobre el suelo u otras secciones del castillo",
+      "Gira las piezas y la cámara para encontrar su posición y orientación",
+      "Clasificaciones en línea separadas para los modos Normal y Hard",
+    ],
+    controls: [
+      { label: "Colocar pieza", text: "Arrástrala al suelo o sobre el castillo" },
+      { label: "Girar pieza", text: "Tecla R o rueda del ratón" },
+      { label: "Giro inverso", text: "Tecla Q" },
+      { label: "Girar cámara", text: "Arrastre derecho, arrastre izquierdo en un espacio vacío o flechas" },
+    ],
+    notes: ["Reproduce los tres castillos tal como se muestran y busca el mejor tiempo."],
+  },
   "nazotoki-10s": {
     title: "Puzzle de 10s",
     catch: "Crea diez dieces para completar esta aventura de lógica y cálculo.",

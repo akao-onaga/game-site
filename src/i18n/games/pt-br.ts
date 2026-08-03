@@ -326,6 +326,41 @@ export const ptBrGames: Record<string, GameTranslation> = {
     ],
     notes: ["Acertos aumentam combo e FEVER; notas coloridas recuperam DOPA. Erros e teclas incorretas reduzem DOPA."],
   },
+  "castle-pazzle": {
+    title: "CASTLE PAZZLE",
+    catch: "Memorize três castelos e reconstrua-os neste desafio 3D contra o tempo.",
+    genre: "Quebra-cabeça",
+    dialogue: [
+      { speaker: "onaga", text: "Que tipo de jogo de construir castelos é CASTLE PAZZLE?" },
+      {
+        speaker: "akao",
+        text: "Memorize três castelos e depois reconstrua cada um o mais rápido possível com as peças espalhadas.",
+      },
+      { speaker: "onaga", text: "Posso continuar olhando os modelos enquanto construo?" },
+      {
+        speaker: "akao",
+        text: "Quando a construção começa, você depende da memória. Gire as peças e a câmera para encontrar a posição e a orientação corretas.",
+      },
+      { speaker: "onaga", text: "Então memorizar rápido importa tanto quanto construir rápido." },
+      {
+        speaker: "akao",
+        text: "Exatamente. O tempo termina quando os três castelos ficam prontos, e há um modo Hard para um desafio maior.",
+      },
+    ],
+    features: [
+      "Quebra-cabeça 3D para memorizar e reconstruir três castelos",
+      "Arraste as peças soltas para o chão ou sobre outras partes do castelo",
+      "Gire as peças e a câmera para descobrir a posição e a orientação certas",
+      "Rankings on-line separados para os modos Normal e Hard",
+    ],
+    controls: [
+      { label: "Colocar peça", text: "Arraste para o chão ou sobre o castelo" },
+      { label: "Girar peça", text: "Tecla R ou roda do mouse" },
+      { label: "Giro inverso", text: "Tecla Q" },
+      { label: "Girar câmera", text: "Arraste com o botão direito, arraste à esquerda no espaço vazio ou use as setas" },
+    ],
+    notes: ["Reproduza os três castelos como nos modelos e busque o melhor tempo."],
+  },
   "nazotoki-10s": {
     title: "Quebra-cabeça de 10s",
     catch: "Crie dez números 10 para concluir esta aventura de lógica e cálculo.",
