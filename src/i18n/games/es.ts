@@ -339,7 +339,7 @@ export const esGames: Record<string, GameTranslation> = {
       { speaker: "onaga", text: "¿Puedo seguir mirando los modelos mientras construyo?" },
       {
         speaker: "akao",
-        text: "Cuando empieza la construcción dependes de tu memoria. Gira las piezas y la cámara para encontrar cada posición y orientación correctas.",
+        text: "En el modo Easy puedes volver a consultar los modelos tantas veces como quieras mientras construyes. En Hard no puedes volver a verlos una vez iniciada la construcción, así que debes memorizarlos bien al principio.",
       },
       { speaker: "onaga", text: "Así que memorizar rápido importa tanto como construir rápido." },
       {
@@ -349,9 +349,11 @@ export const esGames: Record<string, GameTranslation> = {
     ],
     features: [
       "Puzle 3D de memorizar y reconstruir tres castillos",
+      "En Easy puedes consultar los modelos en cualquier momento mientras construyes",
+      "En Hard no puedes volver a ver los modelos una vez iniciada la construcción",
       "Arrastra las piezas sobre el suelo u otras secciones del castillo",
       "Gira las piezas y la cámara para encontrar su posición y orientación",
-      "Clasificaciones en línea separadas para los modos Normal y Hard",
+      "Clasificaciones en línea separadas para los modos Easy y Hard",
     ],
     controls: [
       { label: "Colocar pieza", text: "Arrástrala al suelo o sobre el castillo" },

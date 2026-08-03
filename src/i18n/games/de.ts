@@ -339,7 +339,7 @@ export const deGames: Record<string, GameTranslation> = {
       { speaker: "onaga", text: "Kann ich die Vorlagen beim Bauen weiter ansehen?" },
       {
         speaker: "akao",
-        text: "Sobald der Bau beginnt, zählt dein Gedächtnis. Drehe Teile und Kamera, um die richtige Position und Ausrichtung zu finden.",
+        text: "Im Easy-Modus kannst du die Vorlagen während des Bauens beliebig oft erneut ansehen. Im Hard-Modus sind sie nach Baubeginn überhaupt nicht mehr verfügbar, also musst du sie dir am Anfang gut einprägen.",
       },
       { speaker: "onaga", text: "Schnelles Merken ist also genauso wichtig wie schnelles Bauen." },
       {
@@ -349,9 +349,11 @@ export const deGames: Record<string, GameTranslation> = {
     ],
     features: [
       "3D-Puzzle zum Einprägen und Nachbauen von drei Burgen",
+      "Im Easy-Modus können die Vorlagen beim Bauen jederzeit erneut angesehen werden",
+      "Im Hard-Modus sind die Vorlagen nach Baubeginn überhaupt nicht mehr einsehbar",
       "Lose Burgteile auf den Boden oder andere Bauteile ziehen",
       "Teile und Kamera drehen, um Position und Ausrichtung zu bestimmen",
-      "Getrennte Online-Bestenlisten für Normal und Hard",
+      "Getrennte Online-Bestenlisten für Easy und Hard",
     ],
     controls: [
       { label: "Teil platzieren", text: "Auf den Boden oder die Burg ziehen" },

@@ -20,7 +20,7 @@ dialogue:
   - speaker: onaga
     text: "Can I keep looking at the examples while I build?"
   - speaker: akao
-    text: "Once construction begins, you have to rely on memory. Rotate the pieces and camera to find every correct position and orientation."
+    text: "Easy mode lets you review the reference designs as often as you like while building. Hard mode never lets you view them again after construction begins, so you need to memorize them carefully at the start."
   - speaker: onaga
     text: "So remembering quickly matters just as much as building quickly."
   - speaker: akao
@@ -30,9 +30,11 @@ dialogue:
 ## Features
 
 - Memorize and rebuild three castle designs in a 3D puzzle
+- Review the reference designs at any time while building in Easy mode
+- Once construction begins in Hard mode, the reference designs cannot be viewed again
 - Drag loose castle pieces onto the ground or other castle sections
 - Rotate pieces and the camera to identify the correct positions and angles
-- Separate online clear-time rankings for Normal and Hard modes
+- Separate online clear-time rankings for Easy and Hard modes
 
 ## How to Play
 

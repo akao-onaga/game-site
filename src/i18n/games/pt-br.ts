@@ -339,7 +339,7 @@ export const ptBrGames: Record<string, GameTranslation> = {
       { speaker: "onaga", text: "Posso continuar olhando os modelos enquanto construo?" },
       {
         speaker: "akao",
-        text: "Quando a construção começa, você depende da memória. Gire as peças e a câmera para encontrar a posição e a orientação corretas.",
+        text: "No modo Easy, você pode rever os modelos quantas vezes quiser durante a construção. No Hard, eles não podem ser vistos novamente depois que a construção começa, então é preciso memorizá-los bem no início.",
       },
       { speaker: "onaga", text: "Então memorizar rápido importa tanto quanto construir rápido." },
       {
@@ -349,9 +349,11 @@ export const ptBrGames: Record<string, GameTranslation> = {
     ],
     features: [
       "Quebra-cabeça 3D para memorizar e reconstruir três castelos",
+      "No Easy, os modelos podem ser consultados a qualquer momento durante a construção",
+      "No Hard, os modelos não podem ser vistos novamente após o início da construção",
       "Arraste as peças soltas para o chão ou sobre outras partes do castelo",
       "Gire as peças e a câmera para descobrir a posição e a orientação certas",
-      "Rankings on-line separados para os modos Normal e Hard",
+      "Rankings on-line separados para os modos Easy e Hard",
     ],
     controls: [
       { label: "Colocar peça", text: "Arraste para o chão ou sobre o castelo" },

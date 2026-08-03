@@ -335,7 +335,7 @@ export const zhCnGames: Record<string, GameTranslation> = {
       { speaker: "onaga", text: "建造时还能一直看着示例吗？" },
       {
         speaker: "akao",
-        text: "开始建造后只能依靠记忆。旋转零件和镜头，找出正确的位置与方向。",
+        text: "Easy模式下，组装过程中可以随时重新查看示例。Hard模式开始组装后完全无法再次查看，所以必须一开始就仔细记住。",
       },
       { speaker: "onaga", text: "看来记得快和建得快一样重要。" },
       {
@@ -345,9 +345,11 @@ export const zhCnGames: Record<string, GameTranslation> = {
     ],
     features: [
       "记住并重建三座城堡的3D益智游戏",
+      "Easy模式下，组装过程中可随时重新查看示例",
+      "Hard模式下，开始组装后完全无法再次查看示例",
       "拖动散落的城堡零件，放到地面或其他城堡部件上",
       "旋转零件和镜头，判断正确的位置与方向",
-      "普通与Hard模式分别设有在线通关时间排行榜",
+      "Easy与Hard模式分别设有在线通关时间排行榜",
     ],
     controls: [
       { label: "放置零件", text: "拖到地面或城堡上" },

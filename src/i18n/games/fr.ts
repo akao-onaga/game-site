@@ -339,7 +339,7 @@ export const frGames: Record<string, GameTranslation> = {
       { speaker: "onaga", text: "Je peux garder les modèles sous les yeux pendant la construction ?" },
       {
         speaker: "akao",
-        text: "Une fois la construction lancée, tu dois compter sur ta mémoire. Fais pivoter les pièces et la caméra pour trouver chaque position et orientation.",
+        text: "En mode Easy, tu peux revoir les modèles autant de fois que tu le souhaites pendant la construction. En Hard, ils deviennent totalement inaccessibles dès que la construction commence, alors mémorise-les bien au départ.",
       },
       { speaker: "onaga", text: "Mémoriser vite compte donc autant que construire vite." },
       {
@@ -349,9 +349,11 @@ export const frGames: Record<string, GameTranslation> = {
     ],
     features: [
       "Puzzle 3D où il faut mémoriser et reconstruire trois châteaux",
+      "En Easy, les modèles restent consultables à tout moment pendant la construction",
+      "En Hard, les modèles ne sont plus du tout consultables après le début de la construction",
       "Glissez les pièces sur le sol ou sur les autres parties du château",
       "Faites pivoter les pièces et la caméra pour trouver leur place et leur sens",
-      "Classements en ligne séparés pour les modes Normal et Hard",
+      "Classements en ligne séparés pour les modes Easy et Hard",
     ],
     controls: [
       { label: "Placer une pièce", text: "La faire glisser sur le sol ou sur le château" },

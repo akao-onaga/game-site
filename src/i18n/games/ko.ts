@@ -333,7 +333,7 @@ export const koGames: Record<string, GameTranslation> = {
       { speaker: "onaga", text: "만드는 동안 견본을 계속 볼 수 있어?" },
       {
         speaker: "akao",
-        text: "조립이 시작되면 기억에 의존해야 해. 부품과 카메라를 돌려 올바른 위치와 방향을 찾아야 하지.",
+        text: "Easy 모드에서는 조립 중에도 견본을 몇 번이든 다시 볼 수 있어. Hard 모드는 조립이 시작되면 전혀 다시 볼 수 없으니 처음에 확실히 외워야 해.",
       },
       { speaker: "onaga", text: "빨리 만드는 것만큼 빨리 외우는 것도 중요하네." },
       {
@@ -343,9 +343,11 @@ export const koGames: Record<string, GameTranslation> = {
     ],
     features: [
       "세 개의 성을 기억하고 재현하는 3D 퍼즐",
+      "Easy 모드에서는 조립 중에도 견본을 언제든 다시 확인 가능",
+      "Hard 모드에서는 조립 시작 후 견본을 전혀 다시 확인할 수 없음",
       "흩어진 성 부품을 드래그해 바닥이나 다른 부품 위에 배치",
       "부품과 카메라를 회전해 올바른 위치와 방향을 판별",
-      "Normal과 Hard 모드별 온라인 클리어 타임 랭킹",
+      "Easy와 Hard 모드별 온라인 클리어 타임 랭킹",
     ],
     controls: [
       { label: "부품 배치", text: "바닥이나 성 위로 드래그" },
