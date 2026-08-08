@@ -363,6 +363,34 @@ export const ptBrGames: Record<string, GameTranslation> = {
     ],
     notes: ["Reproduza os três castelos como nos modelos e busque o melhor tempo."],
   },
+  "coffee-milk": {
+    title: "Café com leite",
+    catch: "Acerte pela cor três cafés ao mesmo tempo e sirva tudo em 60 segundos.",
+    genre: "Arcade",
+    dialogue: [
+      { speaker: "onaga", text: "Como funciona Café com leite?" },
+      {
+        speaker: "akao",
+        text: "Você tem 60 segundos para cuidar de três faixas ao mesmo tempo e adicionar leite até cada café chegar à intensidade pedida.",
+      },
+      { speaker: "onaga", text: "Não tem medidor, então preciso julgar só pela cor?" },
+      {
+        speaker: "akao",
+        text: "Isso. Segure D, Espaço ou K para colocar leite e solte quando a cor estiver certa. Tente alcançar a maior pontuação.",
+      },
+    ],
+    features: [
+      "Desafio de pontuação de 60 segundos em uma cafeteria",
+      "Três faixas atendidas simultaneamente",
+      "Intensidade do café ajustada usando apenas a cor",
+      "Serviço rápido para buscar a maior pontuação",
+    ],
+    controls: [
+      { label: "Faixa esquerda", text: "Segure D para servir leite e solte para entregar" },
+      { label: "Faixa central", text: "Segure Espaço para servir leite e solte para entregar" },
+      { label: "Faixa direita", text: "Segure K para servir leite e solte para entregar" },
+    ],
+  },
   "nazotoki-10s": {
     title: "Quebra-cabeça de 10s",
     catch: "Crie dez números 10 para concluir esta aventura de lógica e cálculo.",

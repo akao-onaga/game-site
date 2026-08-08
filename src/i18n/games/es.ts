@@ -363,6 +363,34 @@ export const esGames: Record<string, GameTranslation> = {
     ],
     notes: ["Reproduce los tres castillos tal como se muestran y busca el mejor tiempo."],
   },
+  "coffee-milk": {
+    title: "Café con leche",
+    catch: "Ajusta por el color tres cafés a la vez y sírvelos en 60 segundos.",
+    genre: "Arcade",
+    dialogue: [
+      { speaker: "onaga", text: "¿De qué va Café con leche?" },
+      {
+        speaker: "akao",
+        text: "Tienes 60 segundos para atender tres carriles a la vez, añadir leche y dejar cada café con la intensidad que pide el cliente.",
+      },
+      { speaker: "onaga", text: "¿No hay medidor y tengo que fiarme solo del color?" },
+      {
+        speaker: "akao",
+        text: "Exacto. Mantén D, Espacio o K para verter leche y suelta la tecla cuando el color sea el adecuado. ¡Ve a por la máxima puntuación!",
+      },
+    ],
+    features: [
+      "Desafío de puntuación de 60 segundos en una cafetería",
+      "Tres carriles que debes atender al mismo tiempo",
+      "Ajuste de la intensidad del café usando únicamente su color",
+      "Servicio rápido para conseguir la mayor puntuación posible",
+    ],
+    controls: [
+      { label: "Carril izquierdo", text: "Mantén D para verter y suelta para servir" },
+      { label: "Carril central", text: "Mantén Espacio para verter y suelta para servir" },
+      { label: "Carril derecho", text: "Mantén K para verter y suelta para servir" },
+    ],
+  },
   "nazotoki-10s": {
     title: "Puzzle de 10s",
     catch: "Crea diez dieces para completar esta aventura de lógica y cálculo.",

@@ -359,6 +359,34 @@ export const zhCnGames: Record<string, GameTranslation> = {
     ],
     notes: ["按照示例完成全部三座城堡，以最快通关时间为目标。"],
   },
+  "coffee-milk": {
+    title: "咖啡牛奶",
+    catch: "只看颜色，同时为三条通道调出客人想要的咖啡浓淡。",
+    genre: "休闲",
+    dialogue: [
+      { speaker: "onaga", text: "咖啡牛奶是怎样的咖啡店游戏？" },
+      {
+        speaker: "akao",
+        text: "在60秒内同时照看三条通道，倒入牛奶，把每杯咖啡调成客人点的浓淡。",
+      },
+      { speaker: "onaga", text: "没有刻度，只能看颜色来判断？" },
+      {
+        speaker: "akao",
+        text: "对。按住D、空格或K键倒奶，颜色合适时松开就能上桌。尽量拿到高分吧。",
+      },
+    ],
+    features: [
+      "限时60秒的咖啡店分数挑战",
+      "同时处理左、中、右三条通道",
+      "不看数值，只凭颜色匹配客人要求的咖啡浓淡",
+      "看准颜色立即上桌，挑战更高分数",
+    ],
+    controls: [
+      { label: "左侧通道", text: "按住D键倒奶，松开上桌" },
+      { label: "中间通道", text: "按住空格键倒奶，松开上桌" },
+      { label: "右侧通道", text: "按住K键倒奶，松开上桌" },
+    ],
+  },
   "nazotoki-10s": {
     title: "10s谜题",
     catch: "做出十个10，完成这场算术解谜冒险。",

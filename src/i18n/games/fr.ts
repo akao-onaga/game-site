@@ -363,6 +363,34 @@ export const frGames: Record<string, GameTranslation> = {
     ],
     notes: ["Reproduisez les trois châteaux comme les modèles et visez le meilleur temps."],
   },
+  "coffee-milk": {
+    title: "Café au lait",
+    catch: "Fiez-vous à la couleur pour préparer trois cafés à la fois en 60 secondes.",
+    genre: "Arcade",
+    dialogue: [
+      { speaker: "onaga", text: "Quel genre de jeu de café est Café au lait ?" },
+      {
+        speaker: "akao",
+        text: "Pendant 60 secondes, tu gères trois lignes de service à la fois et verses du lait pour obtenir l'intensité demandée par chaque client.",
+      },
+      { speaker: "onaga", text: "Il n'y a pas de jauge, il faut se fier uniquement à la couleur ?" },
+      {
+        speaker: "akao",
+        text: "Exactement. Maintiens D, Espace ou K pour verser, puis relâche quand la couleur est bonne. Essaie d'obtenir le meilleur score.",
+      },
+    ],
+    features: [
+      "Défi de score de 60 secondes dans un café",
+      "Trois lignes de service à gérer simultanément",
+      "Intensité du café à déterminer uniquement grâce à sa couleur",
+      "Service rapide pour viser le meilleur score",
+    ],
+    controls: [
+      { label: "Ligne gauche", text: "Maintenir D pour verser, relâcher pour servir" },
+      { label: "Ligne centrale", text: "Maintenir Espace pour verser, relâcher pour servir" },
+      { label: "Ligne droite", text: "Maintenir K pour verser, relâcher pour servir" },
+    ],
+  },
   "nazotoki-10s": {
     title: "Puzzle des 10",
     catch: "Créez dix fois 10 pour terminer cette aventure de calcul et d'énigmes.",

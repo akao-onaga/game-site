@@ -363,6 +363,34 @@ export const deGames: Record<string, GameTranslation> = {
     ],
     notes: ["Baue alle drei Burgen exakt nach den Vorlagen und erreiche die schnellste Zeit."],
   },
+  "coffee-milk": {
+    title: "Kaffee mit Milch",
+    catch: "Mische in 60 Sekunden drei Kaffees gleichzeitig – nur die Farbe zählt.",
+    genre: "Arcade",
+    dialogue: [
+      { speaker: "onaga", text: "Was für ein Café-Spiel ist Kaffee mit Milch?" },
+      {
+        speaker: "akao",
+        text: "Du betreust 60 Sekunden lang drei Bahnen gleichzeitig und gießt Milch ein, bis jeder Kaffee die bestellte Stärke hat.",
+      },
+      { speaker: "onaga", text: "Es gibt keine Anzeige, ich muss also nur nach der Farbe gehen?" },
+      {
+        speaker: "akao",
+        text: "Genau. Halte D, Leertaste oder K zum Eingießen gedrückt und lass bei der richtigen Farbe los. Hol dir die höchste Punktzahl.",
+      },
+    ],
+    features: [
+      "60-sekündige Punktejagd im Café",
+      "Drei Bahnen gleichzeitig bedienen",
+      "Die gewünschte Kaffeestärke allein anhand der Farbe treffen",
+      "Im richtigen Moment servieren und den Highscore jagen",
+    ],
+    controls: [
+      { label: "Linke Bahn", text: "D zum Eingießen halten, zum Servieren loslassen" },
+      { label: "Mittlere Bahn", text: "Leertaste zum Eingießen halten, zum Servieren loslassen" },
+      { label: "Rechte Bahn", text: "K zum Eingießen halten, zum Servieren loslassen" },
+    ],
+  },
   "nazotoki-10s": {
     title: "10er-Rätsel",
     catch: "Erzeuge zehnmal die 10 in diesem Rechenabenteuer.",
