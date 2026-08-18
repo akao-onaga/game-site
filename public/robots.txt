@@ -1,4 +1,8 @@
-User-agent: *
+# Content signals: Cloudflareが自動付与していたポリシーを明示的に維持するもの。
+# search=yes  : 検索インデックスへの利用を許可
+# ai-train=no : AIモデルの学習・ファインチューニングへの利用を拒否
+User-Agent: *
+Content-Signal: search=yes, ai-train=no
 Allow: /
 
 Sitemap: https://akao-game.com/sitemap-index.xml
